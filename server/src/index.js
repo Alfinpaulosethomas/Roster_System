@@ -2,7 +2,7 @@ import "dotenv/config";
 import cors from "cors";
 import express from "express";
 import { connectDatabase, getEmployees, getLeaves, saveEmployeeLeave, seedEmployees, syncEmployeeNightBlocks } from "./services/store.js";
-import { generateSchedule } from "./utils/scheduler.js";
+import { generateSchedule, clearSimulationCache } from "./utils/scheduler.js";
 
 const app = express();
 app.use(cors());
@@ -11,6 +11,7 @@ app.use(express.json());
 const port = process.env.PORT || 5000;
 const useDatabase = await connectDatabase();
 await seedEmployees(useDatabase);
+clearSimulationCache(); // Clear stale cache on every server restart
 
 app.get("/api/health", (_req, res) => {
   res.json({ ok: true, database: useDatabase ? "mongodb" : "memory" });
