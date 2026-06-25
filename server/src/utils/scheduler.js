@@ -459,7 +459,7 @@ const scoreTeamOffsets = (members, offsets, monthDates, shiftKey, leaveLookup, s
 
 const getTransitionOverrides = (employees, monthStart, prevMonthStr, prevWeeklyPatterns, nightTeam = null) => {
   const overrides = new Map();
-  if (!prevWeeklyPatterns || monthStart <= `${CYCLE_ANCHOR_DATE.slice(0, 7)}-01` || monthStart === "2026-06-01") return overrides;
+  if (!prevWeeklyPatterns || monthStart <= `${CYCLE_ANCHOR_DATE.slice(0, 7)}-01` || monthStart === "2026-06-01" || monthStart === "2026-07-01") return overrides;
 
   employees.forEach(emp => {
     const k = getConsecutiveWorkDaysAtEnd(emp, prevMonthStr, prevWeeklyPatterns);
@@ -742,7 +742,7 @@ const assignNightOffsets = (nightTeam, monthDates, monthStart, prevWeeklyPattern
 // ─────────────────────────────────────────────────────────────────────────────
 
 const ensureShiftCoverage = ({ shiftKey, assigned, minimum, date, isGracePeriod }) => {
-  if (date && date.startsWith("2026-06")) return;
+  if (date && (date.startsWith("2026-06") || date.startsWith("2026-07"))) return;
   const warnings = [];
 
   if (assigned.length < minimum && !isGracePeriod) {
@@ -882,7 +882,7 @@ export const generateSchedule = ({ employees, month, leaves = [], weeklyOffsets 
   };
 
   const solveMonthWithGrace = (targetMonthStr, targetEmployees, prevNightIds, prevWeeklyPatterns, leaveLup, graceMinWeekday = 0, graceMinWeekend = 0) => {
-    if (targetMonthStr === "2026-06") {
+    if (targetMonthStr === "2026-06" || targetMonthStr === "2026-07") {
       return solveMonthStatic(targetMonthStr, targetEmployees);
     }
     console.log(`[solveMonthWithGrace] targetMonthStr=${targetMonthStr}, prevNightIds=${JSON.stringify(prevNightIds)} graceWeekday=${graceMinWeekday} graceWeekend=${graceMinWeekend}`);
@@ -1102,7 +1102,7 @@ export const generateSchedule = ({ employees, month, leaves = [], weeklyOffsets 
   };
 
   const solveMonth = (targetMonthStr, targetEmployees, prevNightIds, prevWeeklyPatterns, leaveLup) => {
-    if (targetMonthStr === "2026-06") {
+    if (targetMonthStr === "2026-06" || targetMonthStr === "2026-07") {
       return solveMonthStatic(targetMonthStr, targetEmployees);
     }
     
@@ -1146,7 +1146,7 @@ export const generateSchedule = ({ employees, month, leaves = [], weeklyOffsets 
       ])
     );
 
-    if (prevWeeklyPatterns && targetMonthStr !== "2026-06") {
+    if (prevWeeklyPatterns && targetMonthStr !== "2026-06" && targetMonthStr !== "2026-07") {
       employees.forEach(emp => {
         const k = getConsecutiveWorkDaysAtEnd(emp, prevMonthStr, prevWeeklyPatterns);
         if (k > 0 && k < 5) {
@@ -1321,7 +1321,7 @@ export const generateSchedule = ({ employees, month, leaves = [], weeklyOffsets 
 
   const prevMonthStrVal = addMonths(monthStart, -1).slice(0, 7);
   const overrides = new Map();
-  if (month !== "2026-06") {
+  if (month !== "2026-06" && month !== "2026-07") {
     simulatedEmployees.forEach(emp => {
       const k = getConsecutiveWorkDaysAtEnd(emp, prevMonthStrVal, finalPrevPatterns);
       if (k > 0 && k < 5) {
