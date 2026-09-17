@@ -24,20 +24,20 @@ const SHIFT_SIZES = { morning: 4, evening: 6, night: 4 };
 
 // Fixed shift assignments and week-off cycle offsets for June 2026 (from PDF)
 const STATIC_SCHED_MAP = {
-  "EMP001": { shift: "morning", offset: 0 },
-  "EMP002": { shift: "morning", offset: 3 },
-  "EMP003": { shift: "morning", offset: 5 },
-  "EMP004": { shift: "morning", offset: 3 },
-  "EMP005": { shift: "evening", offset: 0 },
-  "EMP006": { shift: "evening", offset: 2 },
-  "EMP007": { shift: "evening", offset: 0 },
-  "EMP008": { shift: "evening", offset: 2 },
-  "EMP014": { shift: "evening", offset: 3 },
-  "EMP015": { shift: "night",   offset: 3 },
-  "EMP016": { shift: "night",   offset: 0 },
-  "EMP017": { shift: "night",   offset: 3 },
-  "EMP018": { shift: "night",   offset: 0 },
-  "EMP019": { shift: "night",   offset: 3 }
+  "EMP001": { shift: "morning", offset: 1 }, // PDF: EMP1 (Mon, Tue off)
+  "EMP002": { shift: "morning", offset: 5 }, // PDF: EMP2 (Thu, Fri off)
+  "EMP003": { shift: "morning", offset: 3 }, // PDF: EMP3 (Sat, Sun off)
+  "EMP004": { shift: "morning", offset: 3 }, // PDF: EMP4 (Sat, Sun off)
+  "EMP005": { shift: "evening", offset: 2 }, // PDF: EMP5 (Sun, Mon off)
+  "EMP006": { shift: "evening", offset: 4 }, // PDF: EMP6 (Fri, Sat off)
+  "EMP007": { shift: "evening", offset: 1 }, // PDF: EMP7 (Mon, Tue off)
+  "EMP008": { shift: "evening", offset: 0 }, // PDF: EMP8 (Tue, Wed off)
+  "EMP014": { shift: "evening", offset: 3 }, // PDF: EMP9 (Sat, Sun off)
+  "EMP015": { shift: "night",   offset: 3 }, // PDF: EMP10 (Sat, Sun off)
+  "EMP016": { shift: "night",   offset: 3 }, // PDF: EMP11 (Sat, Sun off)
+  "EMP017": { shift: "night",   offset: 2 }, // PDF: EMP12 (Sun, Mon off)
+  "EMP018": { shift: "night",   offset: 1 }, // PDF: EMP13 (Mon, Tue off)
+  "EMP019": { shift: "night",   offset: 0 }  // PDF: EMP14 (Tue, Wed off)
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
